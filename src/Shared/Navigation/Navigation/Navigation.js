@@ -5,64 +5,44 @@ import {
     CssBaseline,
     Typography,
     useTheme,
-    useMediaQuery
+    useMediaQuery,
+    IconButton,
+    Stack,
+    Button
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import NavigationDrawer from "../NavigationDrawer/NavigationDrawer";
+import { Box } from "@mui/system";
 
-// const useStyles = makeStyles((theme) => ({
-//     navlinks: {
-//         marginLeft: theme.spacing(5),
-//         display: "flex",
-//     },
-//     logo: {
-//         flexGrow: "1",
-//         cursor: "pointer",
-//     },
-//     link: {
-//         textDecoration: "none",
-//         color: "white",
-//         fontSize: "20px",
-//         marginLeft: theme.spacing(20),
-//         "&:hover": {
-//             color: "yellow",
-//             borderBottom: "1px solid white",
-//         },
-//     },
-// }));
 
 function Navigation() {
     // const classes = useStyles();
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-    return (
-        <AppBar position="static">
-            <CssBaseline />
-            <Toolbar>
-                <Typography variant="h4">
-                    Navbar
 
+    return (
+        <AppBar position="static" sx={{ backgroundColor: 'white' }}>
+            <CssBaseline />
+            <Toolbar style={{ justifyContent: "space-between", margin: '0 5%' }}>
+                {isMobile && <NavigationDrawer />}
+                {!isMobile && <Stack direction="row" spacing={2}>
+                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Home</Button></NavLink>
+                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Collections</Button></NavLink>
+                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Dashboard</Button></NavLink>
+                </Stack>
+                }
+                <Typography variant="h4" component="h5">
+                    <NavLink to='/' style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>Savon.</NavLink>
                 </Typography>
-                {isMobile ? (
-                    <NavigationDrawer />
-                ) : (
-                    <div>
-                        <Link to="/" >
-                            Home
-                        </Link>
-                        <Link to="/about">
-                            About
-                        </Link>
-                        <Link to="/contact">
-                            Contact
-                        </Link>
-                        <Link to="/faq">
-                            FAQ
-                        </Link>
-                    </div>
-                )}
+                {!isMobile && <Stack direction="row" spacing={2}>
+                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Admin</Button></NavLink>
+                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Name</Button></NavLink>
+                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Icon</Button></NavLink>
+                </Stack>
+                }
             </Toolbar>
+
         </AppBar>
     );
 }

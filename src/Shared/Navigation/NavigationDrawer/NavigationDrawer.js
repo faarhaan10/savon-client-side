@@ -1,20 +1,12 @@
-import { Avatar, Drawer, IconButton, List, ListItem, ListItemText } from "@mui/material";
+import { Drawer, IconButton, List, ListItem, ListItemText } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { pink } from "@mui/material/colors";
 
-// const useStyles = makeStyles(() => ({
-//     link: {
-//         textDecoration: "none",
-//         color: "blue",
-//         fontSize: "20px",
-//     },
-//     icon: {
-//         color: "white"
-//     }
-// }));
 
 function NavigationDrawer() {
-    // const classes = useStyles();
+
     const [openDrawer, setOpenDrawer] = useState(false);
     return (
         <>
@@ -45,8 +37,12 @@ function NavigationDrawer() {
                     </ListItem>
                 </List>
             </Drawer>
-            <IconButton onClick={() => setOpenDrawer(!openDrawer)}>
-                <Avatar />
+            <IconButton onClick={() => setOpenDrawer(!openDrawer)} size="large"
+                edge="start"
+                aria-label="menu"
+                sx={{ mr: 2, color: pink[500] }}
+            >
+                <MenuIcon />
             </IconButton>
         </>
     );
