@@ -2,10 +2,14 @@ import { Button, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 import Navigation from '../../../Shared/Navigation/Navigation/Navigation';
 
 const Register = () => {
     const [newUser, setNewUser] = useState({});
+    const { user, error, setError } = useAuth();
+    console.log(user)
+
     const handleSubmit = e => {
         e.preventDefault();
 

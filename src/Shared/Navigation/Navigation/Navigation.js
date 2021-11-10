@@ -6,17 +6,18 @@ import {
     Typography,
     useTheme,
     useMediaQuery,
-    IconButton,
     Stack,
     Button
 } from "@mui/material";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import NavigationDrawer from "../NavigationDrawer/NavigationDrawer";
-import { Box } from "@mui/system";
+import useAuth from "../../../hooks/useAuth";
 
 
-function Navigation() {
-    // const classes = useStyles();
+const Navigation = () => {
+    const { user, handleLogOut } = useAuth();
+
+
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -27,6 +28,9 @@ function Navigation() {
             <Toolbar style={{ justifyContent: "space-between", margin: '0 5%' }}>
                 {/* responsive toggleer  */}
                 {isMobile && <NavigationDrawer />}
+                <Typography variant="h4" component="h5">
+                    <NavLink to='/' style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>Savon.</NavLink>
+                </Typography>
                 {/* reguler users route  */}
                 {!isMobile && <Stack direction="row" spacing={2}>
                     <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Home</Button></NavLink>
@@ -35,16 +39,26 @@ function Navigation() {
                 </Stack>
                 }
 
-                <Typography variant="h4" component="h5">
-                    <NavLink to='/' style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>Savon.</NavLink>
-                </Typography>
                 {/* admin and login info  */}
-                {!isMobile && <Stack direction="row" spacing={2}>
+                {!isMobile && <Stack direction="row" spacing={2}
+                    style={{ alignItems: 'center' }}>
                     <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Admin</Button></NavLink>
-                    <Typography
-                    ><Button color="secondary" disabled>name</Button></Typography>
+                    {user.email ? <Typography
+                        color="hotpink" >{user?.displayName.toLocaleUpperCase()}</Typography>
+                        :
+                        <Typography></Typography>
+                    }
 
-                    <NavLink to='/login' style={{ textDecoration: 'none' }}> <Button color="secondary">Login</Button></NavLink>
+                    {!user.email ? <NavLink
+                        to='/login'
+                        style={{ textDecoration: 'none' }}> <Button color="secondary">Login</Button>
+                    </NavLink>
+                        :
+                        <Button
+                            onClick={handleLogOut}
+                            color="secondary">
+                            Log Out
+                        </Button>}
                 </Stack>
                 }
             </Toolbar>

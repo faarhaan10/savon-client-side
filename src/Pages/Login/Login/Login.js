@@ -2,12 +2,13 @@ import { Button, Chip, Divider, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 import Navigation from '../../../Shared/Navigation/Navigation/Navigation';
-// import useAuth from '../../../hooks/useAuth';
+
 
 const Login = () => {
-    // const { user, handleGoogleSignIn } = useAuth();
-    // console.log(user)
+    const { user, handleGoogleLogin } = useAuth();
+    console.log(user)
 
     const [newUser, setNewUser] = useState({});
     const handleSubmit = e => {
@@ -60,8 +61,9 @@ const Login = () => {
                     </Divider>
                 </Typography>
 
+                {/* google sign in  */}
                 <Button
-
+                    onClick={handleGoogleLogin}
                     variant="outlined"
                     color="secondary"
                     sx={{ borderRadius: 5, width: 1 }}
