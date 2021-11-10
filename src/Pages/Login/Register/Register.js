@@ -55,7 +55,7 @@ const Register = () => {
 
                 <Button color="primary" variant="contained" sx={{ width: 1, mb: 2, backgroundColor: 'hotpink' }} type='submit' >Register</Button>
 
-                <Typography variant="p" component="div" sx={{ flexGrow: 1, mb: 2, fontWeight: 600 }}>
+                <Typography variant="p" component="div" sx={{ flexGrow: 1, mb: 2, fontWeight: 400 }}>
                     Already Have an account? <Link to='/login' style={{ color: 'hotpink' }}>Login</Link>
                 </Typography>
             </Box>

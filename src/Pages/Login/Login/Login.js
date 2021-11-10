@@ -26,10 +26,6 @@ const Login = () => {
     }
 
 
-
-
-
-
     return (
         <div>
             <Navigation></Navigation>
@@ -77,9 +73,8 @@ const Login = () => {
                 <Typography
                     variant="p"
                     component="div"
-                    sx={{ flexGrow: 1, mb: 2, fontWeight: 600 }}>
-                    Don't Have an account?
-                    <Link to='/register'
+                    sx={{ flexGrow: 1, mb: 2, fontWeight: 400 }}>
+                    Don't Have an account?  <Link to='/register'
                         style={{ color: 'hotpink' }}
                     >Create an account</Link>
                 </Typography>
