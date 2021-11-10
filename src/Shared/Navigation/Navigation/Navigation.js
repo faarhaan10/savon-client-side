@@ -25,20 +25,26 @@ function Navigation() {
         <AppBar position="static" sx={{ backgroundColor: 'white' }}>
             <CssBaseline />
             <Toolbar style={{ justifyContent: "space-between", margin: '0 5%' }}>
+                {/* responsive toggleer  */}
                 {isMobile && <NavigationDrawer />}
+                {/* reguler users route  */}
                 {!isMobile && <Stack direction="row" spacing={2}>
                     <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Home</Button></NavLink>
                     <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Collections</Button></NavLink>
-                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Dashboard</Button></NavLink>
+                    <NavLink to='/dashboard' style={{ textDecoration: 'none' }}> <Button color="secondary">Dashboard</Button></NavLink>
                 </Stack>
                 }
+
                 <Typography variant="h4" component="h5">
                     <NavLink to='/' style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>Savon.</NavLink>
                 </Typography>
+                {/* admin and login info  */}
                 {!isMobile && <Stack direction="row" spacing={2}>
                     <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Admin</Button></NavLink>
-                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Name</Button></NavLink>
-                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Icon</Button></NavLink>
+                    <Typography
+                    ><Button color="secondary" disabled>name</Button></Typography>
+
+                    <NavLink to='/login' style={{ textDecoration: 'none' }}> <Button color="secondary">Login</Button></NavLink>
                 </Stack>
                 }
             </Toolbar>
