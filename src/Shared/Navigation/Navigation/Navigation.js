@@ -44,7 +44,7 @@ const Navigation = () => {
                     style={{ alignItems: 'center' }}>
                     <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Admin</Button></NavLink>
                     {user.email ? <Typography
-                        color="hotpink" >{user?.displayName.toLocaleUpperCase()}</Typography>
+                        color="hotpink" >{user?.displayName?.toLocaleUpperCase()}</Typography>
                         :
                         <Typography></Typography>
                     }

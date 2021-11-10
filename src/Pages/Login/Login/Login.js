@@ -1,4 +1,4 @@
-import { Button, Chip, Divider, TextField, Typography } from '@mui/material';
+import { Alert, Button, Chip, CircularProgress, Divider, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -7,14 +7,13 @@ import Navigation from '../../../Shared/Navigation/Navigation/Navigation';
 
 
 const Login = () => {
-    const { user, handleGoogleLogin } = useAuth();
+    const { user, handleGoogleLogin, handleEmailPasswordLogin, error, setError, isLoading } = useAuth();
     console.log(user)
 
     const [newUser, setNewUser] = useState({});
     const handleSubmit = e => {
         e.preventDefault();
-
-        console.log(newUser)
+        handleEmailPasswordLogin(newUser.email, newUser.password);
     }
     const handleBlur = e => {
         const field = e.target.name;
@@ -23,10 +22,11 @@ const Login = () => {
         const newValue = { ...newUser };
         newValue[field] = value;
         setNewUser(newValue);
+        setError('');
 
     }
 
-
+    if (isLoading) { return <CircularProgress /> }
     return (
         <div>
             <Navigation></Navigation>
@@ -71,7 +71,7 @@ const Login = () => {
                     <img src="https://i.ibb.co/ZzHTC84/Group-573.png" alt="" style={{ width: '25px', left: 5, position: 'absolute' }} />
                     Continue with google
                 </Button>
-
+                {error && <Alert severity="warning">{error}</Alert>}
                 <Typography
                     variant="p"
                     component="div"

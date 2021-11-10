@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
 import initializeAuthentication from "../firebase/firebase.init";
 
@@ -8,6 +8,7 @@ initializeAuthentication();
 const useFirebase = () => {
     const [user, setUser] = useState({});
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const googleProvider = new GoogleAuthProvider();
@@ -24,10 +25,14 @@ const useFirebase = () => {
     };
 
     // create user with email and pass 
-    const handleEmailPasswordRegister = (email, password) => {
+    const handleEmailPasswordRegister = (email, password, name) => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((user) => {
-
+                updateProfile(auth.currentUser, {
+                    displayName: name
+                }).then(() => {
+                }).catch((error) => {
+                });
             })
             .catch((error) => {
                 setError(error.message);
@@ -36,6 +41,7 @@ const useFirebase = () => {
 
     // Login user with email and pass 
     const handleEmailPasswordLogin = (email, password) => {
+        setIsLoading(true)
         signInWithEmailAndPassword(auth, email, password)
             .then((user) => {
 
@@ -43,6 +49,7 @@ const useFirebase = () => {
             .catch((error) => {
                 setError(error.message);
             });
+        setIsLoading(false)
     };
 
     // observer
@@ -74,7 +81,10 @@ const useFirebase = () => {
         handleGoogleLogin,
         handleEmailPasswordLogin,
         handleEmailPasswordRegister,
-        handleLogOut
+        handleLogOut,
+        isLoading,
+        setIsLoading,
+        setUser
     };
 };
 
