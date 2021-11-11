@@ -12,6 +12,7 @@ import Login from './Pages/Login/Login/Login';
 import Register from './Pages/Login/Register/Register';
 import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 import AuthProvider from './context/AuthProvider/AuthProvider';
+import Soaps from './Pages/Collections/Soaps/Soaps';
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
 
           <Route path="/home">
             <Home />
+          </Route>
+
+          <Route path="/collections">
+            <Soaps />
           </Route>
 
           <Route path="/dashboard">

@@ -7,7 +7,7 @@ import { Avatar, Card, CardActionArea, CardContent, Container, Typography } from
 const Reviews = () => {
     return (
         <Box sx={{ flexGrow: 1, my: 5 }} >
-            <Typography gutterBottom variant="h3" component="div" sx={{ fontWeight: 500, textAlign: 'center' }}>
+            <Typography gutterBottom variant="h3" component="div" sx={{ fontWeight: 500, textAlign: 'center', fontSize: { md: 40, sm: 30, xs: 25 } }}>
                 Customer Reviews
             </Typography>
             <Container>

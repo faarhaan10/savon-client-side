@@ -8,6 +8,7 @@ import { pink } from "@mui/material/colors";
 function NavigationDrawer() {
 
     const [openDrawer, setOpenDrawer] = useState(false);
+
     return (
         <>
             <Drawer
@@ -22,12 +23,12 @@ function NavigationDrawer() {
                     </ListItem>
                     <ListItem onClick={() => setOpenDrawer(false)}>
                         <ListItemText>
-                            <Link to="/about">About</Link>
+                            <Link to="/collections">Collections</Link>
                         </ListItemText>
                     </ListItem>
                     <ListItem onClick={() => setOpenDrawer(false)}>
                         <ListItemText>
-                            <Link to="/contact">Contact</Link>
+                            <Link to="/dashboard">Dashboard</Link>
                         </ListItemText>
                     </ListItem>
                     <ListItem onClick={() => setOpenDrawer(false)}>
