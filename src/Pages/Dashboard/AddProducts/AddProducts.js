@@ -29,8 +29,22 @@ const CssTextField = styled(TextField)({
 
 
 export default function AddProducts() {
-    const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, reset } = useForm();
+    const onSubmit = data => {
+
+        fetch('https://savon-server-sider-api.herokuapp.com/soaps', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    reset();
+                    alert('Succesfully added .');
+                }
+            })
+    };
 
 
     return (

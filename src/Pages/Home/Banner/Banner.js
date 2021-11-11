@@ -2,6 +2,7 @@ import { Button, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Banner = () => {
     const theme = createTheme();
@@ -28,12 +29,13 @@ const Banner = () => {
                     <Typography variant="h3">Enriched Soap</Typography>
                 </ThemeProvider>
 
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    sx={{ mr: 2 }}
-                > Shop All</Button>
-                <Button variant="contained" color="secondary">View More</Button>
+                <Link to='/collections' style={{ textDecoration: 'none' }}>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        sx={{ mr: 2 }}
+                    > Shop All</Button>
+                </Link>
             </Box>
         </div >
     );
