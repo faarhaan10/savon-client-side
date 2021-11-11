@@ -18,7 +18,7 @@ const Footer = () => {
             <Box sx={{ flexGrow: 1 }} sx={{ py: 5, backgroundColor: 'pink' }}>
                 <Container>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={9}>
+                        <Grid item xs={12} md={3}>
                             <Typography variant="h4" gutterBottom component="div" style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>
                                 Savon.
                             </Typography>
@@ -70,11 +70,11 @@ const Footer = () => {
                 </Container>
             </Box>
             <Box>
-                <Container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 2, flexDirection: { xs: 'column' } }}>
+                <Container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 2, flexDirection: { xs: 'column', md: 'row' } }}>
                     <Typography variant="overline" display="block" gutterBottom>
                         © 2021 SAVON. A Programming Hero Initiative
                     </Typography>
-                    <img src="https://i.ibb.co/4dj36B3/image.png" alt="" />
+                    <img style={{ xs: { width: '100%' } }} src="https://i.ibb.co/4dj36B3/image.png" alt="" />
                 </Container>
             </Box>
         </>

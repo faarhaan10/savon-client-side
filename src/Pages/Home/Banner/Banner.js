@@ -17,19 +17,25 @@ const Banner = () => {
     };
     return (
         <div>
-            <Box sx={{ position: 'relative' }}>
+            {/* <Box sx={{ position: 'relative' }}>
                 <img style={{ width: '100%', height: 'auto' }} src="https://i.ibb.co/9Zx1zYp/banner.jpg" alt="" />
-            </Box>
-            <Box sx={{ textAlign: 'center', position: 'absolute', top: '45%', width: 1 }}>
+            </Box> */}
+            {/* <Box sx={{ textAlign: 'center', position: 'absolute', top: '45%', width: 1 }}> */}
+            <Box sx={{ textAlign: 'center', backgroundImage: 'url(https://i.ibb.co/9Zx1zYp/banner.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', py: 25 }} >
 
                 <ThemeProvider theme={theme}>
                     <Typography variant="h3">Natural Antioxidant</Typography>
                     <Typography variant="h3">Enriched Soap</Typography>
                 </ThemeProvider>
-                <Button variant="contained" color="secondary" sx={{ mr: 2 }}>Shop All</Button>
+
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    sx={{ mr: 2 }}
+                > Shop All</Button>
                 <Button variant="contained" color="secondary">View More</Button>
             </Box>
-        </div>
+        </div >
     );
 };
 
