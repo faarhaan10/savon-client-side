@@ -2,34 +2,31 @@ import { Alert, Button, CircularProgress, TextField, Typography } from '@mui/mat
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Navigation from '../../../Shared/Navigation/Navigation/Navigation';
 
 const Register = () => {
     const [newUser, setNewUser] = useState({});
-    const { user, setUser, error, setError, isLoading, setIsLoading, handleEmailPasswordRegister } = useAuth();
-    console.log(user)
-
-    if (isLoading) { return <CircularProgress /> }
+    const { setUser, error, setError, isLoading, setIsLoading, handleEmailPasswordRegister } = useAuth();
+    const location = useLocation();
+    const history = useHistory();
+    const redirect_URI = location.state?.from || '/';
 
     const handleSubmit = e => {
         e.preventDefault();
         const { email, password, password2, name } = newUser;
         if ((password + password2).length < 12) {
-            setIsLoading(true);
             setError('Your password must be at least 6 characters long.');
-            setIsLoading(false);
             return;
         }
         if (password !== password2) {
-            setIsLoading(true);
             setError('Your password did not match');
-            setIsLoading(false);
             return;
         }
         const loggedInUser = { email, displayName: name };
         setUser(loggedInUser);
-        handleEmailPasswordRegister(email, password, name);
+        handleEmailPasswordRegister(email, password, name, history, redirect_URI);
     }
     const handleOnBlur = e => {
         setError('');

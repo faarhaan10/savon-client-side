@@ -7,24 +7,31 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TableRow from '@mui/material/TableRow';
+import CheckIcon from '@mui/icons-material/Check';
 import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
-import { IconButton, Typography } from '@mui/material';
+import { CircularProgress, IconButton, Typography } from '@mui/material';
+import { Box } from '@mui/system';
 
-const MyOrders = () => {
+const Orders = () => {
     const [orders, setOrders] = React.useState([]);
-    const { user } = useAuth();
+    const { user, isLoading, setIsLoading } = useAuth();
 
     // load logged in users data 
     React.useEffect(() => {
-        axios.get(`https://savon-server-sider-api.herokuapp.com/soaps/customers/?email=${user.email}`)
-            .then(res => setOrders(res.data))
-    }, [user.email]);
+        axios.get('https://savon-server-sider-api.herokuapp.com/soaps/customers')
+            .then(res => {
+                setOrders(res.data);
+            })
+    }, []);
+
+    console.log(orders);
 
     // cancel order handler
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure to cancel this order?');
         if (proceed) {
+
             axios.delete(`https://savon-server-sider-api.herokuapp.com/soaps/customers/${id}`)
                 .then(res => {
                     if (res.data.acknowledged) {
@@ -34,7 +41,36 @@ const MyOrders = () => {
                     }
                 });
         }
-    }
+    };
+
+
+    // update order handler
+    const handleAccept = (id, status) => {
+        if (status !== 'shipped') {
+            const newStatus = { status: 'shipped' };
+            axios.put(`https://savon-server-sider-api.herokuapp.com/soaps/customers/${id}`, newStatus)
+                .then(res => {
+                    if (res.data.acknowledged) {
+                        alert('Order updated Succesfully');
+                    }
+
+                })
+        }
+        else {
+            alert('Already shipped')
+        }
+
+    };
+
+    // if (isLoading) {
+    //     return <Box sx={{ flexGrow: 1, my: 5, textAlign: 'center' }} >
+    //         <CircularProgress />
+    //     </Box>
+    // }
+
+
+
+
 
     return (
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -46,6 +82,12 @@ const MyOrders = () => {
                                 No.
                             </TableCell>
                             <TableCell>
+                                Name
+                            </TableCell>
+                            <TableCell>
+                                Customer Email
+                            </TableCell>
+                            <TableCell>
                                 Products
                             </TableCell>
                             <TableCell>
@@ -55,11 +97,11 @@ const MyOrders = () => {
                                 Status
                             </TableCell>
                             <TableCell>
-                                Cancel
+                                Ship/Cancel
                             </TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {!isLoading ? <TableBody>
                         {
                             orders.map(order => <TableRow
                                 hover
@@ -71,6 +113,12 @@ const MyOrders = () => {
                                     {orders.indexOf(order) + 1}
                                 </TableCell>
                                 <TableCell >
+                                    {order.name}
+                                </TableCell>
+                                <TableCell >
+                                    {order.email}
+                                </TableCell>
+                                <TableCell >
                                     {order.soapTitle}
                                 </TableCell>
                                 <TableCell >
@@ -80,6 +128,9 @@ const MyOrders = () => {
                                     {order.status}
                                 </TableCell>
                                 <TableCell >
+                                    <IconButton onClick={() => handleAccept(order._id, order.status)} aria-label="delete">
+                                        <CheckIcon />
+                                    </IconButton>
                                     <IconButton onClick={() => handleDelete(order._id)} aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
@@ -92,10 +143,15 @@ const MyOrders = () => {
                             </Typography>
                         </TableRow>}
                     </TableBody>
+                        :
+                        <Box sx={{ flexGrow: 1, my: 5, textAlign: 'center' }} >
+                            <CircularProgress />
+                        </Box>
+                    }
                 </Table>
             </TableContainer>
         </Paper >
     );
 };
 
-export default MyOrders;
+export default Orders;

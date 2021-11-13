@@ -1,11 +1,10 @@
-import logo from './logo.svg';
+
 import './App.css';
 import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import Home from './Pages/Home/Home/Home';
 import Login from './Pages/Login/Login/Login';
@@ -14,6 +13,7 @@ import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 import AuthProvider from './context/AuthProvider/AuthProvider';
 import Soaps from './Pages/Collections/Soaps/Soaps';
 import PlaceOrder from './Pages/PlaceOrder/PlaceOrder/PlaceOrder';
+import PrivetRoute from './ProtectedRoute/PrivetRoute/PrivetRoute';
 
 function App() {
   return (
@@ -33,13 +33,13 @@ function App() {
             <Soaps />
           </Route>
 
-          <Route path="/placeorder/:id">
+          <PrivetRoute path="/placeorder/:id">
             <PlaceOrder />
-          </Route>
+          </PrivetRoute>
 
-          <Route path="/dashboard">
+          <PrivetRoute path="/dashboard">
             <Dashboard />
-          </Route>
+          </PrivetRoute>
 
           <Route path="/login">
             <Login />

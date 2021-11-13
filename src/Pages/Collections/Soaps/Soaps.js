@@ -8,22 +8,14 @@ import useAuth from '../../../hooks/useAuth';
 
 const Soaps = () => {
     const [soaps, setSoaps] = React.useState([]);
-    const { isLoading, setIsLoading } = useAuth();
 
 
     React.useEffect(() => {
-        setIsLoading(true);
         fetch('https://savon-server-sider-api.herokuapp.com/soaps')
             .then(res => res.json())
             .then(data => setSoaps(data))
-        setIsLoading(false);
     }, []);
 
-    if (isLoading) {
-        return <Box sx={{ flexGrow: 1, my: 5 }} >
-            <CircularProgress />
-        </Box>
-    }
 
     return (
         <>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import { Button, CircularProgress, Container, Divider, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { Box } from '@mui/system';
 import useAuth from '../../../hooks/useAuth';
@@ -31,13 +31,17 @@ const CssTextField = styled(TextField)({
 
 
 
-const Billing = ({ soapId }) => {
+const Billing = ({ soapId, soapTitle }) => {
     const { user } = useAuth();
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit } = useForm();
 
 
     const onSubmit = data => {
-        const newPurchase = { soapId, ...data };
+        const date = new Date().toLocaleDateString();
+        const status = 'pending';
+        const newPurchase = { soapId, date, status, ...data };
+        console.log(newPurchase)
+
         axios.post('https://savon-server-sider-api.herokuapp.com/customers', newPurchase)
             .then(res => {
                 if (res.data.acknowledged) {
@@ -72,6 +76,16 @@ const Billing = ({ soapId }) => {
                         defaultValue={user?.email}
                         id="custom-css-outlined-input"
                         {...register("email", { required: true })} />
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={4} >
+                    <CssTextField
+                        sx={{ width: 1 }}
+                        label="Product"
+                        type='text'
+                        defaultValue={soapTitle}
+                        id="custom-css-outlined-input"
+                        {...register("soapTitle", { required: true })} />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={4} >

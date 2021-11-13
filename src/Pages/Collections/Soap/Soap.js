@@ -2,7 +2,6 @@ import React from 'react';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Card, CardActionArea, CardContent, CardMedia, Rating, Typography } from '@mui/material';
-import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const Soap = ({ soap }) => {

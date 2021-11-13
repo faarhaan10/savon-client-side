@@ -1,19 +1,24 @@
-import { Alert, Button, Chip, CircularProgress, Divider, TextField, Typography } from '@mui/material';
+import { Alert, Button, Chip, Divider, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import Navigation from '../../../Shared/Navigation/Navigation/Navigation';
 
 
 const Login = () => {
-    const { user, handleGoogleLogin, handleEmailPasswordLogin, error, setError, isLoading } = useAuth();
-    console.log(user)
-
     const [newUser, setNewUser] = useState({});
+    const { handleGoogleLogin, handleEmailPasswordLogin, error, setError } = useAuth();
+    const location = useLocation();
+    const history = useHistory();
+
+    const handleGoogleSignIn = () => {
+        handleGoogleLogin(history, location);
+    }
     const handleSubmit = e => {
         e.preventDefault();
-        handleEmailPasswordLogin(newUser.email, newUser.password);
+        handleEmailPasswordLogin(newUser.email, newUser.password, history, location);
     }
     const handleBlur = e => {
         const field = e.target.name;
@@ -26,7 +31,6 @@ const Login = () => {
 
     }
 
-    if (isLoading) { return <CircularProgress /> }
     return (
         <div>
             <Navigation></Navigation>
@@ -50,7 +54,7 @@ const Login = () => {
                 </Typography>
 
 
-                <TextField onBlur={handleBlur} id="standard-basic" label="Email" variant="standard" sx={{ width: 1, mb: 2 }} type='email' name="email" defaultValue='' required />
+                <TextField onBlur={handleBlur} label="Email" variant="standard" sx={{ width: 1, mb: 2 }} type='email' name="email" defaultValue='' required />
 
                 <TextField onBlur={handleBlur} id="standard-basic" label="Password" variant="standard" sx={{ width: 1, mb: 2 }} type='password' name='password' defaultValue='' required />
 
@@ -63,7 +67,7 @@ const Login = () => {
 
                 {/* google sign in  */}
                 <Button
-                    onClick={handleGoogleLogin}
+                    onClick={handleGoogleSignIn}
                     variant="outlined"
                     color="secondary"
                     sx={{ borderRadius: 5, width: 1 }}

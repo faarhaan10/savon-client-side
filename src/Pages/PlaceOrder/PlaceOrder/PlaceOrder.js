@@ -1,24 +1,30 @@
-import { Button, CircularProgress, Container, Divider, Grid, Typography } from '@mui/material';
+import { CircularProgress, Container, Divider, Grid, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { Rating } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import Navigation from '../../../Shared/Navigation/Navigation/Navigation';
 import Billing from '../Billing/Billing';
 
 const PlaceOrder = () => {
     const [soap, setSoap] = useState({});
     const { id } = useParams();
-    console.log(id);
 
     useEffect(() => {
-        // setIsLoading(true);
         fetch(`https://savon-server-sider-api.herokuapp.com/soaps/${id}`)
             .then(res => res.json())
-            .then(data => setSoap(data))
-        // setIsLoading(false);
+            .then(data => {
+                setSoap(data);
+            })
     }, [id]);
-    console.log(soap);
+
+
+    // console.log(isLoading)
+    // if (isLoading) {
+    //     return <Box sx={{ flexGrow: 1, my: 5, textAlign: 'center' }} >
+    //         <CircularProgress />
+    //     </Box>
+    // }
 
     return (
         <div>
@@ -90,7 +96,7 @@ const PlaceOrder = () => {
                             py: 3,
                             my: 4
                         }}>
-                            <Billing soapId={soap._id} />
+                            <Billing soapId={soap._id} soapTitle={soap.title} />
                         </Container>
 
                     </Box>

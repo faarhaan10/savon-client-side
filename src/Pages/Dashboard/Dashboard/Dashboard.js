@@ -18,6 +18,11 @@ import MyOrders from '../MyOrders/MyOrders';
 import UserReview from '../UserReview/UserReview';
 import SvgIcon from '@mui/material/SvgIcon';
 import AddProducts from '../AddProducts/AddProducts';
+import MakeAdmin from '../MakeAdmin/MakeAdmin';
+import Orders from '../Orders/Orders';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { ListItemIcon } from '@mui/material';
+import useAuth from '../../../hooks/useAuth';
 
 const drawerWidth = 240;
 
@@ -25,7 +30,7 @@ function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     let { path, url } = useRouteMatch();
-
+    const { handleLogOut } = useAuth();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -54,15 +59,29 @@ function Dashboard(props) {
                         <ListItemText primary='Add Review' />
                     </ListItem>
                 </Link>
-                <Link to={`${url}/addproducts`}>
-                    <ListItem button sx={{ textAlign: 'center' }}>
+                <Link to={`${url}/addproducts`} style={{ textDecoration: 'none' }}>
+                    <ListItem button >
                         <ListItemText primary='Add Products' />
+                    </ListItem>
+                </Link>
+
+                <Link to={`${url}/orders`}>
+                    <ListItem button sx={{ textAlign: 'center' }}>
+                        <ListItemText primary='All Orders' />
+                    </ListItem>
+                </Link>
+                <Link to={`${url}/makeadmin`}>
+                    <ListItem button sx={{ textAlign: 'center' }}>
+                        <ListItemText primary='Make Admin' />
                     </ListItem>
                 </Link>
             </List>
             <Divider />
             <List>
-                <ListItem button sx={{ textAlign: 'center' }}>
+                <ListItem button onClick={handleLogOut} >
+                    <ListItemIcon>
+                        <LogoutIcon />
+                    </ListItemIcon>
                     <ListItemText primary='Log out' />
                 </ListItem>
             </List>
@@ -153,7 +172,7 @@ function Dashboard(props) {
                 <Toolbar />
                 <Switch>
                     <Route exact path={`${path}/`}>
-                        <Payment></Payment>
+                        <MyOrders></MyOrders>
                     </Route>
                     <Route path={`${path}/payment`}>
                         <Payment></Payment>
@@ -166,6 +185,12 @@ function Dashboard(props) {
                     </Route>
                     <Route path={`${path}/addproducts`}>
                         <AddProducts></AddProducts>
+                    </Route>
+                    <Route path={`${path}/makeadmin`}>
+                        <MakeAdmin />
+                    </Route>
+                    <Route path={`${path}/orders`}>
+                        <Orders />
                     </Route>
                 </Switch>
             </Box>

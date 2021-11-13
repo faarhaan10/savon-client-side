@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { Card, CardActionArea, CardContent, CardMedia, Container, Rating, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Products = () => {
     const [soaps, setSoaps] = React.useState([]);
@@ -24,27 +25,29 @@ const Products = () => {
                         soaps.map(soap => <Grid item xs={4} sm={4} md={4}
                             key={soap._id}
                         >
-                            <Paper elevation={3}>
-                                <Card sx={{ textAlign: 'center' }}>
-                                    <CardActionArea >
-                                        <CardMedia
-                                            component="img"
-                                            height="253"
-                                            image={soap.img}
-                                            alt="green iguana"
-                                        />
-                                        <CardContent>
-                                            <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 600 }}>
-                                                {soap.title}
-                                            </Typography>
-                                            <Rating name="read-only" defaultValue={soap.rating} readOnly />
-                                            <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 600 }}>
-                                                $ {soap.price}.00 <span style={{ textDecoration: 'line-through', color: 'gray' }}>${parseInt(soap.price) + 15}</span>
-                                            </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </Paper>
+                            <Link to={`/placeorder/${soap._id}`} style={{ textDecoration: 'none' }}>
+                                <Paper elevation={3}>
+                                    <Card sx={{ textAlign: 'center' }}>
+                                        <CardActionArea >
+                                            <CardMedia
+                                                component="img"
+                                                height="253"
+                                                image={soap.img}
+                                                alt="green iguana"
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div" sx={{ fontWeight: 600 }}>
+                                                    {soap.title}
+                                                </Typography>
+                                                <Rating name="read-only" defaultValue={parseInt(soap.rating)} readOnly />
+                                                <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 600 }}>
+                                                    $ {soap.price}.00 <span style={{ textDecoration: 'line-through', color: 'gray' }}>${parseInt(soap.price) + 15}</span>
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                    </Card>
+                                </Paper>
+                            </Link>
                         </Grid>
                         )}
                 </Grid>
