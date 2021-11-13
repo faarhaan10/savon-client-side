@@ -13,6 +13,7 @@ import Register from './Pages/Login/Register/Register';
 import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 import AuthProvider from './context/AuthProvider/AuthProvider';
 import Soaps from './Pages/Collections/Soaps/Soaps';
+import PlaceOrder from './Pages/PlaceOrder/PlaceOrder/PlaceOrder';
 
 function App() {
   return (
@@ -30,6 +31,10 @@ function App() {
 
           <Route path="/collections">
             <Soaps />
+          </Route>
+
+          <Route path="/placeorder/:id">
+            <PlaceOrder />
           </Route>
 
           <Route path="/dashboard">
