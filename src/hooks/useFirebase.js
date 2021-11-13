@@ -10,6 +10,7 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [admin, setAdmin] = useState(false);
 
 
     const googleProvider = new GoogleAuthProvider();
@@ -27,7 +28,7 @@ const useFirebase = () => {
                 }
                 saveUser(newUser, 'put');
 
-                history.replce(location?.state.from || '/')
+                history.replace(location.state?.from || '/')
             }).catch((error) => {
                 setError(error.message);
             }).finally(() => {
@@ -41,11 +42,12 @@ const useFirebase = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((user) => {
                 const newUser = { email, displayName: name };
-                history.replce(location?.state.from || '/')
                 saveUser(newUser, 'post');
                 updateProfile(auth.currentUser, {
                     displayName: name
                 }).then(() => {
+
+                    history.replace(location.state?.from || '/')
                 }).catch((error) => {
                 });
             })
@@ -62,7 +64,7 @@ const useFirebase = () => {
         setIsLoading(true)
         signInWithEmailAndPassword(auth, email, password)
             .then((user) => {
-                history.replce(location?.state.from || '/')
+                history.replace(location.state?.from || '/')
             })
             .catch((error) => {
                 setError(error.message);
@@ -100,15 +102,23 @@ const useFirebase = () => {
     //save user to db
     const saveUser = (newUser, method) => {
         if (method === 'put') {
-            axios.put('https://savon-server-sider-api.herokuapp.com/soaps/users', newUser)
+            axios.put('https://savon-server-sider-api.herokuapp.com/users', newUser)
                 .then()
         }
         else {
-            axios.post('https://savon-server-sider-api.herokuapp.com/soaps/users', newUser)
+            axios.post('https://savon-server-sider-api.herokuapp.com/users', newUser)
                 .then()
         }
 
     };
+
+    // make admin
+    useEffect(() => {
+        axios.get(`https://savon-server-sider-api.herokuapp.com/users?email=${user.email}`)
+            .then(res => setAdmin(res.data.admin))
+            .catch()
+    }, [user.email])
+
 
     return {
         user,
@@ -120,7 +130,8 @@ const useFirebase = () => {
         handleLogOut,
         isLoading,
         setIsLoading,
-        setUser
+        setUser,
+        admin
     };
 };
 

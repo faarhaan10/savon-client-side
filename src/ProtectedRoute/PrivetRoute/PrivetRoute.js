@@ -6,13 +6,12 @@ import useAuth from '../../hooks/useAuth';
 
 const PrivetRoute = ({ children, ...rest }) => {
     const { isLoading, user } = useAuth();
-    console.log(isLoading, user)
 
 
     if (isLoading) {
-        return <h4 sx={{ flexGrow: 1, my: 5, textAlign: 'center' }} >
-            Loading
-        </h4>
+        return <Box sx={{ flexGrow: 1, my: 5, textAlign: 'center' }} >
+            <CircularProgress />
+        </Box>
     }
     return (
         <Route

@@ -1,10 +1,9 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import { Container, Typography, CircularProgress } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import Soap from '../Soap/Soap';
 import Navigation from '../../../Shared/Navigation/Navigation/Navigation';
-import useAuth from '../../../hooks/useAuth';
 
 const Soaps = () => {
     const [soaps, setSoaps] = React.useState([]);

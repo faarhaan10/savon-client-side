@@ -26,11 +26,13 @@ const Navigation = () => {
         <AppBar position="static" sx={{ backgroundColor: 'white' }}>
             <CssBaseline />
             <Toolbar style={{ justifyContent: "space-between", margin: '0 5%' }}>
+
                 {/* responsive toggleer  */}
                 {isMobile && <NavigationDrawer />}
                 <Typography variant="h4" component="h5" sx={{ fontSize: { md: 40, sm: 35, xs: 25 } }}>
                     <NavLink to='/' style={{ textDecoration: 'none', color: 'black', fontWeight: '700' }}>Savon.</NavLink>
                 </Typography>
+
                 {/* reguler users route  */}
                 {!isMobile && <Stack
                     direction="row"
@@ -38,16 +40,15 @@ const Navigation = () => {
                 >
                     <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Home</Button></NavLink>
                     <NavLink to='/collections' style={{ textDecoration: 'none' }}> <Button color="secondary">Collections</Button></NavLink>
-                    <NavLink to='/dashboard' style={{ textDecoration: 'none' }}> <Button color="secondary">Dashboard</Button></NavLink>
+                    {user.email && <NavLink to='/dashboard' style={{ textDecoration: 'none' }}> <Button color="secondary">Dashboard</Button></NavLink>}
                 </Stack>
                 }
 
-                {/* admin and login info  */}
+                {/* login info  */}
                 {!isMobile && <Stack direction="row" spacing={2}
                     style={{ alignItems: 'center' }}>
-                    <NavLink to='/' style={{ textDecoration: 'none' }}> <Button color="secondary">Admin</Button></NavLink>
                     {user.email ? <Typography
-                        color="hotpink" >{user?.displayName?.toLocaleUpperCase()}</Typography>
+                        color="hotpink" >{user?.displayName?.toLocaleUpperCase() || 'User'}</Typography>
                         :
                         <Typography></Typography>
                     }

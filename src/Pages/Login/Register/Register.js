@@ -1,4 +1,4 @@
-import { Alert, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { Alert, Button, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ import Navigation from '../../../Shared/Navigation/Navigation/Navigation';
 
 const Register = () => {
     const [newUser, setNewUser] = useState({});
-    const { setUser, error, setError, isLoading, setIsLoading, handleEmailPasswordRegister } = useAuth();
+    const { setUser, error, setError, handleEmailPasswordRegister } = useAuth();
     const location = useLocation();
     const history = useHistory();
     const redirect_URI = location.state?.from || '/';
@@ -63,13 +63,13 @@ const Register = () => {
                 </Typography>
 
                 <TextField onBlur={handleOnBlur} required
-                    id="outlined-required" label="Full Name" variant="standard" sx={{ width: 1, mb: 2 }} type='text' name="name" defaultValue='' />
+                    label="Full Name" variant="standard" sx={{ width: 1, mb: 2 }} type='text' name="name" defaultValue='' />
 
-                <TextField onBlur={handleOnBlur} id="standard-basic" label="Email" variant="standard" sx={{ width: 1, mb: 2 }} type='email' name="email" defaultValue='' required />
+                <TextField onBlur={handleOnBlur} label="Email" variant="standard" sx={{ width: 1, mb: 2 }} type='email' name="email" defaultValue='' required />
 
-                <TextField onBlur={handleOnBlur} id="standard-basic" label="Password" variant="standard" sx={{ width: 1, mb: 2 }} type='password' name='password' defaultValue='' required />
+                <TextField onBlur={handleOnBlur} label="Password" variant="standard" sx={{ width: 1, mb: 2 }} type='password' name='password' defaultValue='' required />
 
-                <TextField onBlur={handleOnBlur} id="standard-basic" label="Confirm Password" variant="standard"
+                <TextField onBlur={handleOnBlur} label="Confirm Password" variant="standard"
                     sx={{
                         width: 1,
                         mb: 2

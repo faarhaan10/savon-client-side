@@ -71,11 +71,21 @@ const Billing = ({ soapId, soapTitle }) => {
                 <Grid item xs={4} sm={4} md={4} >
                     <CssTextField
                         sx={{ width: 1 }}
-                        label="email"
+                        label="Email"
                         type='email'
                         defaultValue={user?.email}
                         id="custom-css-outlined-input"
                         {...register("email", { required: true })} />
+                </Grid>
+
+                <Grid item xs={4} sm={4} md={4} >
+                    <CssTextField
+                        sx={{ width: 1 }}
+                        label="Phone"
+                        type='number'
+                        defaultValue={user?.email}
+                        id="custom-css-outlined-input"
+                        {...register("phone")} />
                 </Grid>
 
                 <Grid item xs={4} sm={4} md={4} >

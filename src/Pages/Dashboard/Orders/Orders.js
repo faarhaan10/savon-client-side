@@ -8,31 +8,27 @@ import TableHead from '@mui/material/TableHead';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TableRow from '@mui/material/TableRow';
 import CheckIcon from '@mui/icons-material/Check';
-import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
-import { CircularProgress, IconButton, Typography } from '@mui/material';
-import { Box } from '@mui/system';
+import { IconButton, Typography } from '@mui/material';
 
 const Orders = () => {
     const [orders, setOrders] = React.useState([]);
-    const { user, isLoading, setIsLoading } = useAuth();
 
     // load logged in users data 
     React.useEffect(() => {
-        axios.get('https://savon-server-sider-api.herokuapp.com/soaps/customers')
+        axios.get('https://savon-server-sider-api.herokuapp.com/customers')
             .then(res => {
                 setOrders(res.data);
             })
     }, []);
 
-    console.log(orders);
 
     // cancel order handler
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure to cancel this order?');
         if (proceed) {
 
-            axios.delete(`https://savon-server-sider-api.herokuapp.com/soaps/customers/${id}`)
+            axios.delete(`https://savon-server-sider-api.herokuapp.com/customers/${id}`)
                 .then(res => {
                     if (res.data.acknowledged) {
                         alert('Order Cancelled Succesfully');
@@ -48,7 +44,7 @@ const Orders = () => {
     const handleAccept = (id, status) => {
         if (status !== 'shipped') {
             const newStatus = { status: 'shipped' };
-            axios.put(`https://savon-server-sider-api.herokuapp.com/soaps/customers/${id}`, newStatus)
+            axios.put(`https://savon-server-sider-api.herokuapp.com/customers/${id}`, newStatus)
                 .then(res => {
                     if (res.data.acknowledged) {
                         alert('Order updated Succesfully');
@@ -61,12 +57,6 @@ const Orders = () => {
         }
 
     };
-
-    // if (isLoading) {
-    //     return <Box sx={{ flexGrow: 1, my: 5, textAlign: 'center' }} >
-    //         <CircularProgress />
-    //     </Box>
-    // }
 
 
 
@@ -101,7 +91,7 @@ const Orders = () => {
                             </TableCell>
                         </TableRow>
                     </TableHead>
-                    {!isLoading ? <TableBody>
+                    <TableBody>
                         {
                             orders.map(order => <TableRow
                                 hover
@@ -137,19 +127,15 @@ const Orders = () => {
                                 </TableCell>
                             </TableRow>
                             )}
-                        {!orders.length && <TableRow>
-                            <Typography variant="h5" component="div" sx={{ fontWeight: 600, m: 2 }}>
-                                No orders
-                            </Typography>
-                        </TableRow>}
+
                     </TableBody>
-                        :
-                        <Box sx={{ flexGrow: 1, my: 5, textAlign: 'center' }} >
-                            <CircularProgress />
-                        </Box>
-                    }
                 </Table>
             </TableContainer>
+
+            {!orders.length && <Typography variant="h5" component="div" sx={{ fontWeight: 600, m: 2 }}>
+                No orders
+            </Typography>
+            }
         </Paper >
     );
 };

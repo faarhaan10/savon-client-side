@@ -9,7 +9,7 @@ const MakeAdmin = () => {
     const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = data => {
-        axios.put('https://savon-server-sider-api.herokuapp.com/soaps/users/admin', data)
+        axios.put('https://savon-server-sider-api.herokuapp.com/users/admin', data)
             .then(res => {
                 if (res.data.acknowledged) {
                     alert('Admin added Succesfully');

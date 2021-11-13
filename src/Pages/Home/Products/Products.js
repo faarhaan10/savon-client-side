@@ -43,6 +43,9 @@ const Products = () => {
                                                 <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 600 }}>
                                                     $ {soap.price}.00 <span style={{ textDecoration: 'line-through', color: 'gray' }}>${parseInt(soap.price) + 15}</span>
                                                 </Typography>
+                                                <Typography gutterBottom variant="p" component="div" >
+                                                    {soap.description.slice(0, 100)}...
+                                                </Typography>
                                             </CardContent>
                                         </CardActionArea>
                                     </Card>
