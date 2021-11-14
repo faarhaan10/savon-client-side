@@ -27,7 +27,8 @@ In this web app, user can purchase desired service. He/She can also withdraw his
 - react-hook-form
 - multiple account creation
 - tables
-- admin management
+- admin dashboard
+- user dashboard
 
 ### About me
 👋 Hi, I’m Farhan Elias
