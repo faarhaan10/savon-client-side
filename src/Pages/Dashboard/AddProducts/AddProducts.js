@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useForm } from "react-hook-form";
+import useAuth from '../../../hooks/useAuth'
+import axios from 'axios';
 
 
 const CssTextField = styled(TextField)({
@@ -29,23 +31,27 @@ const CssTextField = styled(TextField)({
 
 
 export default function AddProducts() {
+    const [productImg, setProductImage] = React.useState('');
+    const { uploadImage } = useAuth();
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
-
-        fetch('https://savon-server-sider-api.herokuapp.com/soaps', {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
-                    reset();
-                    alert('Succesfully added .');
+        const img = productImg;
+        const newData = { img, ...data };
+        axios.post('https://savon-server-sider-api.herokuapp.com/soaps', newData)
+            .then(res => {
+                if (res.data.acknowledged) {
+                    alert('Soap added Succesfully');
                 }
-            })
+            });
+        reset();
     };
 
+    const handleImgUpload = (img, setImg) => {
+        uploadImage(img)
+            .then(res => {
+                setImg(res.data.data.url);
+            })
+    };
 
     return (
         <Box
@@ -58,7 +64,6 @@ export default function AddProducts() {
                     <CssTextField
                         sx={{ width: 1 }}
                         label="Soap Title"
-                        id="custom-css-outlined-input"
                         type='text'
                         {...register("title", { required: true })} />
                 </Grid>
@@ -67,7 +72,6 @@ export default function AddProducts() {
                     <CssTextField
                         sx={{ width: 1 }}
                         label="Price"
-                        id="custom-css-outlined-input"
                         type='number'
                         {...register("price", { required: true })} />
                 </Grid>
@@ -76,7 +80,6 @@ export default function AddProducts() {
                     <CssTextField
                         sx={{ width: 1 }}
                         label="Vendor"
-                        id="custom-css-outlined-input"
                         type='text'
                         {...register("vendor", { required: true })} />
                 </Grid>
@@ -85,7 +88,6 @@ export default function AddProducts() {
                     <CssTextField
                         sx={{ width: 1 }}
                         label="Flavour"
-                        id="custom-css-outlined-input"
                         type='text'
                         {...register("flavour", { required: true })} />
                 </Grid>
@@ -94,7 +96,6 @@ export default function AddProducts() {
                     <CssTextField
                         sx={{ width: 1 }}
                         label="Rating"
-                        id="custom-css-outlined-input"
                         type='number'
                         defaultValue='3'
                         {...register("rating", { required: true })} />
@@ -104,7 +105,6 @@ export default function AddProducts() {
                     <CssTextField
                         sx={{ width: 1 }}
                         label="Description"
-                        id="custom-css-outlined-input"
                         type='text'
                         {...register("description", { required: true })} />
                 </Grid>
@@ -112,15 +112,18 @@ export default function AddProducts() {
                 <Grid item xs={4} sm={4} md={4} >
                     <CssTextField
                         sx={{ width: 1 }}
-                        label="Img URL of the product"
-                        id="custom-css-outlined-input"
-                        type='text'
-                        {...register("img", { required: true })} />
+                        accept="image/png, image/jpg, image/jpeg"
+                        type="file"
+                        required
+                        onChange={e => handleImgUpload(e.target.files[0], setProductImage)}
+                    />
                 </Grid>
 
             </Grid>
 
-            <Button color="primary" variant="contained" sx={{ mt: 2, backgroundColor: 'hotpink' }} type='submit' >Add Package</Button>
+            {productImg.length ? <Button color="primary" variant="contained" sx={{ mt: 2, backgroundColor: 'hotpink' }} type='submit'>Add Package</Button>
+                :
+                <Button color="primary" variant="contained" sx={{ mt: 2, backgroundColor: 'hotpink' }} type='submit' disabled>Add Package</Button>}
         </Box>
     );
 }
